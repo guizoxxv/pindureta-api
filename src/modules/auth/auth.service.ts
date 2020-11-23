@@ -4,11 +4,9 @@ import { UserService } from '../user/user.service';
 import { LoginDTO } from './dtos/login.dto';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { User } from '../user/schemas/user.schema';
 import * as jwt from 'jsonwebtoken';
 import LoginResponse from './interfaces/loginResponse.interface';
-
-type JWTSignParams = Omit<User, 'password'>
+import { PayloadUser } from './types/payloadUser.type';
 
 @Injectable()
 export class AuthService {
@@ -32,9 +30,15 @@ export class AuthService {
     }
 
     if (await this.checkPassword(password, user.password)) {
-      const token = this.getJWTToken(user);
+      const payloadUser = {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      };
+      const token = this.getJWTToken(payloadUser);
 
       return {
+        user: payloadUser,
         token,
       }
     }
@@ -49,9 +53,12 @@ export class AuthService {
     return await bcrypt.compare(requestPassword, userPassword);
   }
   
-  private getJWTToken(params: JWTSignParams) {
+  private getJWTToken(user: PayloadUser) {
     return jwt.sign(
-      { ...params },
+      {
+        id: user._id,
+        name: user.name,
+      },
       this.jwtSecret,
       {
         expiresIn: '15m',
