@@ -8,10 +8,14 @@ export class Product {
   @Prop()
   _id: string;
 
-  @Prop()
+  @Prop({
+    required: true,
+  })
   name: string;
 
-  @Prop()
+  @Prop({
+    required: true,
+  })
   price: number;
 }
 

@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LoggerModule } from './modules/logger/logger.module';
 import { ProductModule } from './modules/product/product.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProductModule } from './modules/product/product.module';
       useFindAndModify: false,
     }),
     LoggerModule,
+    AuthModule,
     ProductModule,
   ],
   controllers: [AppController],

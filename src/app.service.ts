@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import GetAppNameResponse from './interfaces/GetAppNameResponse';
+import GetAppNameResponse from './interfaces/getAppNameResponse.interface';
 
 @Injectable()
 export class AppService {
