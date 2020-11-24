@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import LoginResponse from './interfaces/loginResponse.interface';
-import { PayloadUser } from './types/payloadUser.type';
+import { User } from '../user/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
     private readonly logger: AppLoggerService,
     private readonly userService: UserService,
   ) {
-    this.jwtSecret = this.config.get<string>('JWT_SECRET', 'secretKey');
+    this.jwtSecret = this.config.get<string>('JWT_SECRET_KEY', 'secretKey');
   }
 
   async login(dto: LoginDTO): Promise<LoginResponse> {
@@ -30,15 +30,13 @@ export class AuthService {
     }
 
     if (await this.checkPassword(password, user.password)) {
-      const payloadUser = {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-      };
-      const token = this.getJWTToken(payloadUser);
+      const token = this.getJWTToken(user);
 
       return {
-        user: payloadUser,
+        user: {
+          name: user.name,
+          email: user.email,
+        },
         token,
       }
     }
@@ -53,14 +51,12 @@ export class AuthService {
     return await bcrypt.compare(requestPassword, userPassword);
   }
   
-  private getJWTToken(user: PayloadUser) {
+  private getJWTToken(user: User) {
     return jwt.sign(
-      {
-        id: user._id,
-        name: user.name,
-      },
+      {},
       this.jwtSecret,
       {
+        subject: user._id,
         expiresIn: '15m',
       }
     );

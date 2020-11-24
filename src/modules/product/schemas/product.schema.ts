@@ -5,8 +5,10 @@ export type ProductDocument = Product & Document;
 
 @Schema({ collection: 'products' })
 export class Product {
-  @Prop()
-  _id: string;
+  @Prop({
+    required: false,
+  })
+  _id?: string;
 
   @Prop({
     required: true,
@@ -17,6 +19,11 @@ export class Product {
     required: true,
   })
   price: number;
+
+  @Prop({
+    default: new Date,
+  })
+  created_at?: Date;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
