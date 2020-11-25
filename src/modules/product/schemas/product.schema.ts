@@ -6,11 +6,6 @@ export type ProductDocument = Product & Document;
 @Schema({ collection: 'products' })
 export class Product {
   @Prop({
-    required: false,
-  })
-  _id?: string;
-
-  @Prop({
     required: true,
   })
   name: string;

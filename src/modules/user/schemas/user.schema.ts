@@ -6,11 +6,6 @@ export type UserDocument = User & Document;
 @Schema({ collection: 'users' })
 export class User {
   @Prop({
-    required: false,
-  })
-  _id?: string;
-
-  @Prop({
     required: true,
   })
   name: string;

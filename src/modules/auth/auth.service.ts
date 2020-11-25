@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import LoginResponse from './interfaces/loginResponse.interface';
-import { User } from '../user/schemas/user.schema';
+import { UserDocument } from '../user/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -51,7 +51,7 @@ export class AuthService {
     return await bcrypt.compare(requestPassword, userPassword);
   }
   
-  private getJWTToken(user: User) {
+  private getJWTToken(user: UserDocument) {
     return jwt.sign(
       {},
       this.jwtSecret,
