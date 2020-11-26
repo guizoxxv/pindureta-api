@@ -56,7 +56,7 @@ export class AuthService {
       {},
       this.jwtSecret,
       {
-        subject: user._id,
+        subject: String(user._id),
         expiresIn: '15m',
       }
     );

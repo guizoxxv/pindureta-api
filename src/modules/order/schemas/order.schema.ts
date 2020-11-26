@@ -17,6 +17,11 @@ export class Order {
   total: number;
 
   @Prop({
+    required: false,
+  })
+  value?: number;
+
+  @Prop({
     default: new Date,
   })
   created_at?: Date;

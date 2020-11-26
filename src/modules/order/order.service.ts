@@ -11,12 +11,14 @@ export class OrderService {
     private orderModel: Model<OrderDocument>
   ) {}
 
-  async create(items: OrderItemDTO[]): Promise<void> {
+  async create(items: OrderItemDTO[], value?: number): Promise<void> {
+    const total = items.reduce((prev, curr) => {
+      return prev + curr.total;
+    }, 0);
     await this.orderModel.create({
-      items: items,
-      total: items.reduce((prev, curr) => {
-        return prev + curr.total;
-      }, 0),
+      items,
+      total,
+      value: value ? value : total,
     });
   }
 }

@@ -14,7 +14,10 @@ export class OrderController {
   async create(
     @Body('items', new ParseArrayPipe({ items: OrderItemDTO }))
     items: OrderItemDTO[],
+
+    @Body('value')
+    value?: number,
   ): Promise<void> {
-    await this.orderService.create(items);
+    await this.orderService.create(items, value);
   }
 }
