@@ -1,3 +1,3 @@
-import { User } from 'src/modules/user/schemas/user.schema';
+import { User } from "src/modules/user/schemas/user.schema";
 
-export type PayloadUser = Omit<User, 'password'>;
+export type PayloadUser = Omit<User, 'password' | 'created_at'>;

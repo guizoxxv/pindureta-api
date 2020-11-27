@@ -22,6 +22,11 @@ export class Order {
   value?: number;
 
   @Prop({
+    required: true,
+  })
+  userId: string;
+
+  @Prop({
     default: new Date,
   })
   created_at?: Date;

@@ -1,6 +1,7 @@
-import { Body, Controller, ParseArrayPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { User } from 'src/decorators/user.decorator';
 import { AuthGuard } from 'src/guards/auth.guard';
-import OrderItemDTO from './dtos/orderItem.dto';
+import CreateOrderDTO from './dtos/createOrderDto';
 import { OrderService } from './order.service';
 
 @Controller('orders')
@@ -12,12 +13,9 @@ export class OrderController {
 
   @Post()
   async create(
-    @Body('items', new ParseArrayPipe({ items: OrderItemDTO }))
-    items: OrderItemDTO[],
-
-    @Body('value')
-    value?: number,
+    @Body() dto: CreateOrderDTO,
+    @User('id') userId: string,
   ): Promise<void> {
-    await this.orderService.create(items, value);
+    await this.orderService.create(dto, userId);
   }
 }
