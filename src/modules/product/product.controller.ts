@@ -4,9 +4,11 @@ import { CreateProductDTO } from './dtos/createProduct.dto';
 import { EditProductDTO } from './dtos/editProduct.dto';
 import { ProductService } from './product.service';
 import { Product } from './schemas/product.schema';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('products')
 @UseGuards(AuthGuard)
+@ApiTags('products')
 export class ProductController {
   constructor(
     private readonly productService: ProductService,

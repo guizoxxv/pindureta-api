@@ -7,9 +7,9 @@ export class EditProductDTO {
 
   @IsNotEmpty()
   @IsString()
-  name: string;
+  name?: string;
 
   @IsNotEmpty()
   @IsNumber()
-  price: number;
+  price?: number;
 }

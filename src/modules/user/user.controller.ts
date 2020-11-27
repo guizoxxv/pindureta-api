@@ -4,9 +4,11 @@ import { DevelopmentGuard } from 'src/guards/development.guard';
 import { CreateUserDTO } from './dtos/createUser.dto';
 import { EditUserDTO } from './dtos/editUser.dto';
 import { UserService } from './user.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @UseGuards(DevelopmentGuard, AdminGuard)
 @Controller('users')
+@ApiTags('users')
 export class UserController {
   constructor(
     private readonly userService: UserService,
