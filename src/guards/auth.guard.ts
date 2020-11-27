@@ -16,6 +16,7 @@ export class AuthGuard implements CanActivate {
     context: ExecutionContext,
   ): Promise<boolean> {
     this.request = context.switchToHttp().getRequest();
+    
     const authorization: string = R.path(['headers', 'authorization'], this.request);
 
     if (authorization) {
