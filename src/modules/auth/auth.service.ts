@@ -25,23 +25,21 @@ export class AuthService {
 
     const user = await this.userService.findOne(email);
 
-    if (!user) {
-      throw new BadRequestException;
+    if (user) {
+      if (await this.checkPassword(password, user.password)) {
+        const token = this.getJWTToken(user);
+
+        return {
+          user: {
+            name: user.name,
+            email: user.email,
+          },
+          token,
+        }
+      } 
     }
 
-    if (await this.checkPassword(password, user.password)) {
-      const token = this.getJWTToken(user);
-
-      return {
-        user: {
-          name: user.name,
-          email: user.email,
-        },
-        token,
-      }
-    }
-
-    throw new BadRequestException;
+    throw new BadRequestException('Invalid credentials');
   }
 
   private async checkPassword(

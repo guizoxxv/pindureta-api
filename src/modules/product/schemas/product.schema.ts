@@ -7,6 +7,7 @@ export type ProductDocument = Product & Document;
 export class Product {
   @Prop({
     required: true,
+    unique: true,
   })
   name: string;
 
@@ -19,6 +20,11 @@ export class Product {
     default: new Date,
   })
   created_at?: Date;
+
+  @Prop({
+    default: new Date,
+  })
+  updated_at?: Date;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
