@@ -2,7 +2,9 @@
 
 REST API of an small vending spot for trustfull users. Users can choose to pay any amount during the purchase or pay later.
 
-![Screenshot from Pindurate application](./pindureta.png)
+<p style="text-align:center;">
+  <img src="./pindureta.png" alt="Screenshot from Pindureta">
+</p>
 
 > Front-End in [https://github.com/guizoxxv/pindureta-front](https://github.com/guizoxxv/pindureta-front)
 
