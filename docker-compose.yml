@@ -2,18 +2,28 @@ version: '3'
 
 services:
 
+  # app:
+  #   container_name: app
+  #   image: node:14
+  #   ports:
+  #     - 3000:3000
+  #   working_dir: /home/app
+  #   volumes:
+  #     - ./:/home/app
+  #   command: npm run start:dev
+
   mongo:
     image: mongo
     ports:
-        - 3000:27017
+      - 3001:27017
     volumes:
-        - ./docker/entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh
-        - mongo-data:/data/db
+      - ./docker/entrypoint.sh:/docker-entrypoint-initdb.d/entrypoint.sh
+      - mongo-data:/data/db
     environment:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: root
-        MONGO_INITDB_DATABASE: pindureta
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: pindureta
 
 volumes:
-    mongo-data:
-        driver: local
+  mongo-data:
+    driver: local
